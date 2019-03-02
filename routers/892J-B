@@ -1,0 +1,173 @@
+
+892J-B#show run
+Load for five secs: 1%/0%; one minute: 0%; five minutes: 0%
+Time source is hardware calendar, 01:14:37.998 UTC Sat Mar 2 2019
+
+Building configuration...
+
+Current configuration : 2265 bytes
+!
+! No configuration change since last restart
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname 892J-B
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 4 szwTC2omb13.jvQltcVDruFOyb8o1PJu3qsUI3yM1DY
+!
+no aaa new-model
+!
+crypto pki token default removal timeout 0
+!
+!
+ip source-route
+!
+!
+!
+ip vrf mgmt
+!
+ip dhcp excluded-address 192.168.23.10 192.168.23.126
+ip dhcp excluded-address 192.168.23.130 192.168.23.199
+ip dhcp excluded-address 192.168.23.210 192.168.23.254
+!
+ip dhcp pool VLAN68
+ network 192.168.23.0 255.255.255.128
+!
+ip dhcp pool VLAN69
+ network 192.168.23.128 255.255.255.128
+!
+!
+ip cef
+no ip domain lookup
+ip domain name icttoracon.net
+no ipv6 cef
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+license udi pid CISCO892-K9 sn FGL16312248
+!
+!
+username admin password 7 0964580E163F2D055D
+!
+!
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+interface BRI0
+ no ip address
+ encapsulation hdlc
+ shutdown
+ isdn termination multidrop
+!
+interface FastEthernet0
+ no ip address
+!
+interface FastEthernet1
+ no ip address
+!
+interface FastEthernet2
+ no ip address
+!
+interface FastEthernet3
+ no ip address
+!
+interface FastEthernet4
+ no ip address
+!
+interface FastEthernet5
+ no ip address
+!
+interface FastEthernet6
+ no ip address
+!
+interface FastEthernet7
+ no ip address
+!
+interface FastEthernet8
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet8.68
+ encapsulation dot1Q 68 native
+ ip address 192.168.23.1 255.255.255.128
+!
+interface FastEthernet8.69
+ encapsulation dot1Q 69
+ ip address 192.168.23.129 255.255.255.128
+!
+interface GigabitEthernet0
+ description mgmt
+ ip vrf forwarding mgmt
+ ip address 192.168.127.5 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route vrf mgmt 0.0.0.0 0.0.0.0 192.168.127.254
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+mgcp profile default
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ login local
+ exec prompt timestamp
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+line vty 5 15
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+end
+
+892J-B#
