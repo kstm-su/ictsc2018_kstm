@@ -1,0 +1,151 @@
+
+1841-A>en
+Password:
+1841-A#show run
+Load for five secs: 1%/0%; one minute: 1%; five minutes: 1%
+Time source is hardware calendar, *06:53:04.717 UTC Sat Mar 2 2019
+
+Building configuration...
+
+Current configuration : 1968 bytes
+!
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname 1841-A
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 4 OwabNHbaWT0lBPfLBVbq8lXfYGKy/0egR9zduf6LJp2
+!
+no aaa new-model
+!
+dot11 syslog
+ip source-route
+!
+!
+!
+!
+!
+ip vrf mgmt
+!
+ip cef
+no ip domain lookup
+ip domain name icttoracon.net
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+crypto pki token default removal timeout 0
+!
+!
+!
+!
+license udi pid CISCO1841 sn FGL150823VA
+username admin password 7 053E025F245B410600
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ no ip address
+ ipv6 address FD00:173::1/64
+!
+interface Loopback1
+ no ip address
+ ipv6 address FD00:174::1/64
+!
+interface FastEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 address FD00:171::2/64
+!
+interface FastEthernet0/0.95
+ description mgmt
+ encapsulation dot1Q 95
+ ip vrf forwarding mgmt
+ ip address 192.168.127.6 255.255.255.0
+!
+interface FastEthernet0/1
+ description not_use
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+ no fair-queue
+ clock rate 125000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 125000
+!
+router bgp 2
+ bgp router-id 2.2.2.2
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor FD00:172::1 remote-as 1
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor FD00:172::1 activate
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route vrf mgmt 0.0.0.0 0.0.0.0 192.168.127.254
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ login local
+ exec prompt timestamp
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+line vty 5 15
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+scheduler allocate 20000 1000
+end
+
+1841-A#

@@ -1,0 +1,293 @@
+
+892J-A#show run
+Load for five secs: 0%/0%; one minute: 0%; five minutes: 0%
+Time source is hardware calendar, 06:03:20.449 UTC Sat Mar 2 2019
+
+Building configuration...
+
+Current configuration : 4329 bytes
+!
+! No configuration change since last restart
+!
+version 15.0
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname 892J-A
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$c/ve$s4HMLqXD2v8bLAwX.ORre/
+!
+no aaa new-model
+!
+!
+!
+!
+!
+ip source-route
+!
+!
+ip vrf global
+!
+ip vrf mgmt
+!
+ip vrf tunnel
+!
+!
+ip dhcp pool main
+   vrf tunnel
+   network 192.168.4.0 255.255.255.192
+   default-router 192.168.4.1
+!
+!
+ip cef
+no ip domain lookup
+ip domain name icttoracon.net
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+license udi pid CISCO892-K9 sn FGL1629230C
+!
+!
+!
+no spanning-tree vlan 10
+vtp mode transparent
+username admin password 7 08706A4F5A300C1E19
+!
+!
+vlan 10,807-808,872-873
+!
+ip ssh version 2
+!
+!
+!
+bridge irb
+!
+!
+!
+!
+interface Tunnel80
+ description tunnel
+ ip vrf forwarding tunnel
+ ip address 192.168.4.200 255.255.255.224
+ keepalive 5 15
+ tunnel source 192.168.4.70
+ tunnel destination 192.168.4.130
+ !
+!
+interface BRI0
+ no ip address
+ encapsulation hdlc
+ shutdown
+ isdn termination multidrop
+ !
+!
+interface FastEthernet0
+ switchport access vlan 10
+ !
+!
+interface FastEthernet1
+ switchport access vlan 10
+ !
+!
+interface FastEthernet2
+ switchport access vlan 10
+ !
+!
+interface FastEthernet3
+ switchport access vlan 10
+ !
+!
+interface FastEthernet4
+ switchport access vlan 10
+ !
+!
+interface FastEthernet5
+ switchport access vlan 10
+ !
+!
+interface FastEthernet6
+ switchport access vlan 10
+ !
+!
+interface FastEthernet7
+ switchport access vlan 10
+ !
+!
+interface FastEthernet8
+ description WAN
+ ip vrf forwarding global
+ ip address 192.168.4.70 255.255.255.192
+ duplex auto
+ speed auto
+ !
+!
+interface FastEthernet8.63
+ encapsulation dot1Q 63
+ ip address 192.168.2.100 255.255.255.192
+!
+interface FastEthernet8.95
+ encapsulation dot1Q 95
+ ip vrf forwarding mgmt
+ ip address 192.168.127.4 255.255.255.0
+!
+interface GigabitEthernet0
+ no ip address
+ duplex auto
+ speed auto
+ !
+!
+interface GigabitEthernet0.11
+ encapsulation dot1Q 11
+ bridge-group 11
+!
+interface GigabitEthernet0.22
+ encapsulation dot1Q 22
+ bridge-group 22
+!
+interface GigabitEthernet0.23
+ encapsulation dot1Q 23
+ bridge-group 23
+!
+interface GigabitEthernet0.44
+ encapsulation dot1Q 44
+ bridge-group 44
+!
+interface GigabitEthernet0.62
+ encapsulation dot1Q 62
+ bridge-group 62
+!
+interface GigabitEthernet0.90
+ encapsulation dot1Q 90
+ bridge-group 90
+!
+interface GigabitEthernet0.95
+ encapsulation dot1Q 95
+ bridge-group 95
+!
+interface GigabitEthernet0.1411
+ encapsulation dot1Q 1411
+ bridge-group 11
+!
+interface GigabitEthernet0.1422
+ encapsulation dot1Q 1422
+ bridge-group 22
+!
+interface GigabitEthernet0.1423
+ encapsulation dot1Q 1423
+ bridge-group 23
+!
+interface GigabitEthernet0.1444
+ encapsulation dot1Q 1444
+ bridge-group 44
+!
+interface GigabitEthernet0.1462
+ encapsulation dot1Q 1462
+ bridge-group 62
+!
+interface GigabitEthernet0.1490
+ encapsulation dot1Q 1490
+ bridge-group 90
+!
+interface GigabitEthernet0.1495
+ encapsulation dot1Q 1495
+ bridge-group 95
+!
+interface Vlan1
+ no ip address
+ !
+!
+interface Vlan10
+ description PC
+ ip vrf forwarding tunnel
+ ip address 192.168.4.1 255.255.255.192
+ !
+!
+interface BVI11
+ no ip address
+ !
+!
+interface BVI22
+ no ip address
+ !
+!
+interface BVI23
+ no ip address
+ !
+!
+interface BVI44
+ no ip address
+ !
+!
+interface BVI62
+ no ip address
+ !
+!
+interface BVI90
+ no ip address
+ !
+!
+interface BVI95
+ no ip address
+ !
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route 0.0.0.0 0.0.0.0 192.168.2.65
+ip route vrf global 0.0.0.0 0.0.0.0 192.168.4.126
+ip route vrf mgmt 0.0.0.0 0.0.0.0 192.168.127.254
+!
+access-list 1 permit 192.168.2.10
+!
+!
+!
+!
+snmp-server community ictsc2018 RO 1
+!
+!
+control-plane
+ !
+!
+bridge 11 protocol ieee
+bridge 11 route ip
+bridge 22 protocol ieee
+bridge 22 route ip
+bridge 23 protocol ieee
+bridge 23 route ip
+bridge 44 protocol ieee
+bridge 44 route ip
+bridge 62 protocol ieee
+bridge 62 route ip
+bridge 90 protocol ieee
+bridge 90 route ip
+bridge 95 protocol ieee
+bridge 95 route ip
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ login local
+ exec prompt timestamp
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+line vty 5 15
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+scheduler max-task-time 5000
+end
+
+892J-A#
