@@ -1,7 +1,7 @@
 
 2960-B#show run
 Load for five secs: 4%/0%; one minute: 5%; five minutes: 5%
-No time source, *14:09:20.457 UTC Tue Mar 2 1993
+No time source, *16:26:32.676 UTC Tue Mar 2 1993
 
 Building configuration...
 
@@ -171,7 +171,7 @@ interface FastEthernet0/24
  switchport mode access
 !
 interface GigabitEthernet0/1
- switchport trunk native vlan 69
+ switchport trunk native vlan 68
  switchport trunk allowed vlan 68,69
  switchport mode trunk
 !
