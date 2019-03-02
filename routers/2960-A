@@ -1,0 +1,219 @@
+Load for five secs: 4%/0%; one minute: 5%; five minutes: 5%
+No time source, *13:58:24.048 UTC Tue Mar 2 1993
+
+Building configuration...
+
+Current configuration : 4756 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname 2960-A
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$VTD1$KgtVVObXyVRh2VVsslFmV0
+!
+username admin password 7 07080F1C160F0B022D
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+!
+no ip domain-lookup
+ip domain-name icttoracon.net
+!
+!
+crypto pki trustpoint TP-self-signed-946598912
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-946598912
+ revocation-check none
+ rsakeypair TP-self-signed-946598912
+!
+!
+crypto pki certificate chain TP-self-signed-946598912
+ certificate self-signed 01
+  3082024B 308201B4 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 39343635 39383931 32301E17 0D393330 33303130 30303035
+  345A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3934 36353938
+  39313230 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100
+  EA8BCD60 ADDBEF30 F4DB49AF B4F68219 5A2622CD 214CEDA5 FCE5A1B2 F702EB27
+  3288111D 535D569C 8837216C 7118BB50 67E97B02 1E40428F 3BFD4EBD 1810F935
+  1945911A B1A7F635 A065D1F2 08098E16 09A75613 4D47AB13 A2B7B508 B2A27557
+  F930C2FE A3166187 94ACB3BC 4E22C1D2 4A38E6B3 1D6CC3C5 A4C34E0E F8172E51
+  02030100 01A37530 73300F06 03551D13 0101FF04 05300301 01FF3020 0603551D
+  11041930 17821532 3936302D 412E6963 74746F72 61636F6E 2E6E6574 301F0603
+  551D2304 18301680 1414A079 4F200F42 422275E3 F694FE7C B5B33388 11301D06
+  03551D0E 04160414 14A0794F 200F4242 2275E3F6 94FE7CB5 B3338811 300D0609
+  2A864886 F70D0101 04050003 81810076 8D66808D ADEC644F F6B46AC0 2885F141
+  7F83ABFC F908FBE9 E6FCF6E0 7C9D8D51 8E75E1D7 79E7CC2A CFE72188 F45A9F17
+  765221E3 000E3C78 E855E0F3 8239C172 761A7920 C1B41E86 9D9EF739 198E3446
+  2995E288 316D7F15 A2FA5583 E001476F E19848F3 DD6EA8C8 5C4C092E 453CCF72
+  0A2B3254 95CDCC27 CD0D00CF 59608F
+  quit
+  !
+  !
+  !
+  !
+  !
+  spanning-tree mode pvst
+  spanning-tree extend system-id
+  !
+  vlan internal allocation policy ascending
+  !
+  ip ssh version 2
+  !
+  !
+  interface FastEthernet0/1
+   switchport access vlan 22
+   switchport mode access
+  !
+  interface FastEthernet0/2
+   switchport access vlan 23
+   switchport mode access
+  !
+  interface FastEthernet0/3
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/4
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/5
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/6
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/7
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/8
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/9
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/10
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/11
+   description NOT_USE
+   shutdown
+  !
+  interface FastEthernet0/12
+   description NOT_USE
+   shutdown
+   !
+   interface FastEthernet0/13
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/14
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/15
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/16
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/17
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/18
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/19
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/20
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/21
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/22
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/23
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+   interface FastEthernet0/24
+    description YourPC
+    switchport access vlan 90
+    switchport mode access
+   !
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+ shutdown
+!
+interface Vlan95
+ ip address 192.168.127.2 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 192.168.127.254
+ip http server
+ip http secure-server
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ login local
+ exec prompt timestamp
+line vty 0 4
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+line vty 5 15
+ exec-timeout 0 0
+ login local
+ exec prompt timestamp
+ transport input telnet ssh
+!
+end
