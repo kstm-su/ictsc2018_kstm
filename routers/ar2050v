@@ -37,7 +37,7 @@ zone local
  network lan
   ip subnet 192.168.15.0/24
   host server
-   ip address 192.168.15.33
+   ip address 192.168.15.125
 !
 zone private
  network lan
@@ -130,6 +130,9 @@ interface eth1.95
 interface vlan43
  ip limited-local-proxy-arp
  ip address 192.168.15.126/26
+!
+local-proxy-arp 192.168.15.1/26
+local-proxy-arp 192.168.15.126/26
 !
 ip route 0.0.0.0/0 192.168.127.254
 ip route 192.168.15.33/32 eth1
