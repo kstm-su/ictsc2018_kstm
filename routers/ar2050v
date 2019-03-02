@@ -1,0 +1,145 @@
+
+AR2050V#show run
+!
+service password-encryption
+!
+hostname AR2050V
+!
+no banner motd
+!
+username admin privilege 15 password 8 $1$bJo.uB4D$qtUxX6BFQgvjRIe4cpphI/
+no username manager
+!
+!
+ssh server allow-users admin
+service ssh
+!
+service telnet
+!
+no service http
+!
+no clock timezone
+!
+snmp-server
+!
+!
+aaa authentication enable default local
+aaa authentication login default local
+!
+!
+zone global
+ network wan
+  ip subnet 192.168.15.0/24
+  host client
+   ip address 192.168.15.125
+!
+zone local
+ network lan
+  ip subnet 192.168.15.0/24
+  host server
+   ip address 192.168.15.33
+!
+zone private
+ network lan
+  ip subnet 192.168.15.64/26
+  host client
+   ip address 192.168.15.70
+   ip address 192.168.15.71
+   ip address 192.168.15.72
+   ip address 192.168.15.73
+   ip address 192.168.15.74
+   ip address 192.168.15.75
+   ip address 192.168.15.76
+   ip address 192.168.15.77
+   ip address 192.168.15.78
+   ip address 192.168.15.79
+   ip address 192.168.15.80
+!
+zone public
+ network manager
+  ip subnet 192.168.127.0/24
+ network mgmt
+  ip subnet 172.16.0.0/12
+ network wan
+  ip subnet 192.168.15.0/26
+  host server
+   ip address 192.168.15.32
+!
+firewall
+ rule 10 permit any from private to private
+ rule 20 permit any from private to public
+ rule 30 permit any from private to local
+ rule 40 permit any from private to global
+ rule 50 permit any from public to private
+ rule 60 permit any from public to public
+ rule 70 permit any from public to local
+ rule 80 permit any from public to global
+ rule 90 permit any from local to private
+ rule 100 permit any from local to public
+ rule 110 permit any from local to local
+ rule 120 permit any from local to global
+ rule 130 permit any from global to private
+ rule 140 permit any from global to public
+ rule 150 permit any from global to local
+ rule 160 permit any from global to global
+ protect
+!
+nat
+ rule 10 masq any from private to global with src global.wan.client
+ rule 20 portfwd any from private to local.lan.server with dst public.wan.server
+ enable
+!
+!
+!
+!
+ip domain-lookup
+!
+ip dhcp pool vlan43
+ network 192.168.15.64 255.255.255.192
+ range 192.168.15.70 192.168.15.80
+ default-router 192.168.15.126
+ lease 0 1 0
+!
+!
+!
+service dhcp-server
+!
+no ip multicast-routing
+!
+spanning-tree mode rstp
+!
+lacp global-passive-mode enable
+!
+vlan database
+ vlan 43 state enable
+!
+interface port1.0.1-1.0.4
+ switchport
+ switchport mode access
+ switchport access vlan 43
+!
+interface eth1
+ encapsulation dot1q 95
+ ip limited-local-proxy-arp
+ ip address 192.168.15.1/26
+!
+interface eth1.95
+ description mgmt
+ ip address 192.168.127.9/24
+!
+interface vlan43
+ ip limited-local-proxy-arp
+ ip address 192.168.15.126/26
+!
+ip route 0.0.0.0/0 192.168.127.254
+ip route 192.168.15.33/32 eth1
+ip route 192.168.15.125/32 vlan43
+!
+line con 0
+ exec-timeout 0 0
+line vty 0 15
+ exec-timeout 0 0
+!
+end
+
+AR2050V#
